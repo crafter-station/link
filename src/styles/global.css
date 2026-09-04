@@ -127,16 +127,18 @@ img {
 }
 
 /* Two files rather than one currentColor mark: these are the shipped brand
-   assets from crafter.run's brand kit, and re-inking them would fork the mark. */
-.mark-dark {
+   assets from crafter.run's brand kit, and re-inking them would fork the mark.
+   Named for the background they sit ON, because the upstream filenames say the
+   opposite of what they contain (`icon-dark.svg` is the white mark). */
+.mark-on-dark {
   display: none;
 }
 
-.dark .mark-light {
+.dark .mark-on-light {
   display: none;
 }
 
-.dark .mark-dark {
+.dark .mark-on-dark {
   display: block;
 }
 
@@ -207,6 +209,31 @@ img {
 
 .row:active {
   transform: translateY(1px);
+}
+
+.row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: calc(var(--radius) - 3px);
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  transition: background-color 0.15s ease;
+}
+
+.row:hover .row-icon {
+  background: hsl(var(--background));
+}
+
+.row-primary .row-icon {
+  background: hsl(var(--accent-foreground) / 0.12);
+  color: hsl(var(--accent-foreground));
+}
+
+.row-primary:hover .row-icon {
+  background: hsl(var(--accent-foreground) / 0.18);
 }
 
 .row-body {

@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro"
 import ArrowLink from "../components/ArrowLink.astro"
 import { links, avatarFor, displayHref } from "../lib/links"
+import { iconForSocial } from "../lib/icons"
 
 const { org, members } = links
 
@@ -30,8 +31,21 @@ const COMMUNITY_BLURB: Record<string, string> = {
   description="Every Crafter Station link in one place: the community, what we build, and each crafter's profile."
 >
   <section class="hero">
-    <img class="hero-mark mark-light" src="/brand/mark-light.svg" alt="Crafter Station" width="56" height="56" />
-    <img class="hero-mark mark-dark" src="/brand/mark-dark.svg" alt="" width="56" height="56" aria-hidden="true" />
+    <img
+      class="hero-mark mark-on-light"
+      src="/brand/mark-on-light.svg"
+      alt="Crafter Station"
+      width="56"
+      height="56"
+    />
+    <img
+      class="hero-mark mark-on-dark"
+      src="/brand/mark-on-dark.svg"
+      alt=""
+      width="56"
+      height="56"
+      aria-hidden="true"
+    />
     <span class="label">Crafter Station · LatAm</span>
     <h1>{org.tagline}</h1>
     <p>
@@ -42,7 +56,7 @@ const COMMUNITY_BLURB: Record<string, string> = {
 
   <section class="section" style="border-top: 0; padding-top: 0">
     <div class="rows">
-      <ArrowLink href={org.url} title="crafter.run" sub="The full site" primary />
+      <ArrowLink href={org.url} title="crafter.run" sub="The full site" icon="link" primary />
     </div>
   </section>
 
@@ -58,6 +72,7 @@ const COMMUNITY_BLURB: Record<string, string> = {
             href={entry.href}
             title={entry.label}
             sub={COMMUNITY_BLURB[entry.label] ?? displayHref(entry.href)}
+            icon={iconForSocial(entry.label)}
           />
         ))
       }
@@ -112,7 +127,16 @@ const COMMUNITY_BLURB: Record<string, string> = {
       <span class="count">{follow.length}</span>
     </div>
     <div class="rows">
-      {follow.map((entry) => <ArrowLink href={entry.href} title={entry.label} sub={displayHref(entry.href)} />)}
+      {
+        follow.map((entry) => (
+          <ArrowLink
+            href={entry.href}
+            title={entry.label}
+            sub={displayHref(entry.href)}
+            icon={iconForSocial(entry.label)}
+          />
+        ))
+      }
     </div>
   </section>
 </Base>

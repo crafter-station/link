@@ -1,13 +1,17 @@
 ---
+import Icon from "./Icon.astro"
+import type { IconName } from "../lib/icons"
+
 type Props = {
   href: string
   title: string
   sub?: string
+  icon?: IconName
   primary?: boolean
   external?: boolean
 }
 
-const { href, title, sub, primary = false, external = true } = Astro.props
+const { href, title, sub, icon, primary = false, external = true } = Astro.props
 ---
 
 <a
@@ -15,6 +19,13 @@ const { href, title, sub, primary = false, external = true } = Astro.props
   href={href}
   {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
 >
+  {
+    icon && (
+      <span class="row-icon">
+        <Icon name={icon} />
+      </span>
+    )
+  }
   <span class="row-body">
     <span class="row-title">{title}</span>
     {sub && <span class="row-sub">{sub}</span>}

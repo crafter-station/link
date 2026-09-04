@@ -63,7 +63,12 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
       {
         member.links.length > 0 ? (
           member.links.map((link) => (
-            <ArrowLink href={link.href} title={LINK_LABELS[link.kind]} sub={displayHref(link.href)} />
+            <ArrowLink
+              href={link.href}
+              title={LINK_LABELS[link.kind]}
+              sub={displayHref(link.href)}
+              icon={link.kind}
+            />
           ))
         ) : (
           <p class="label">No public links yet.</p>
@@ -77,8 +82,8 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
       <h2 class="label">More</h2>
     </div>
     <div class="rows">
-      <ArrowLink href={member.url} title="Full profile" sub={displayHref(member.url)} primary />
-      <ArrowLink href="https://crafters.chat" title="Join the community" sub="crafters.chat" />
+      <ArrowLink href={member.url} title="Full profile" sub={displayHref(member.url)} icon="link" primary />
+      <ArrowLink href="https://crafters.chat" title="Join the community" sub="crafters.chat" icon="whatsapp" />
     </div>
   </section>
 </Base>

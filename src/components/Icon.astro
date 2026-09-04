@@ -1,0 +1,27 @@
+---
+import { icons, type IconName } from "../lib/icons"
+
+type Props = {
+  name: IconName
+  size?: number
+}
+
+const { name, size = 16 } = Astro.props
+const icon = icons[name]
+
+// Brand glyphs are authored as solid shapes; the drawn ones are strokes. Both
+// inherit currentColor, so a row only has to set its own text colour.
+const paint = icon.filled
+  ? { fill: "currentColor" }
+  : {
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": 1.75,
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+    }
+---
+
+<svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...paint}>
+  <path d={icon.path} />
+</svg>
