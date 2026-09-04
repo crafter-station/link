@@ -59,8 +59,18 @@ async function load(): Promise<LinksData> {
     if (!Array.isArray(data?.members) || data.members.length === 0) {
       throw new Error("payload has no members")
     }
-    if (!data.org?.socials || !data.org?.products) {
+    if (!data.org?.socials?.length || !data.org?.products?.length) {
       throw new Error("payload has no org links")
+    }
+
+    // `/links.json` is new, so a structurally-present but malformed payload is
+    // a live possibility. Every member becomes a route and a card, and a
+    // missing `username` would emit a page at `/undefined`. Fall back instead.
+    const broken = data.members.find(
+      (member) => !member?.username || !member?.name || !member?.url || !Array.isArray(member?.links),
+    )
+    if (broken) {
+      throw new Error(`member ${broken.username ?? "<no username>"} is missing required fields`)
     }
 
     console.info(`[links] live: ${data.members.length} members from ${ENDPOINT}`)

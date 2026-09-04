@@ -12,29 +12,61 @@ import { existsSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import sharp from "sharp"
+import { deriveSnapshot } from "./derive-snapshot.mjs"
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const SNAPSHOT = path.join(root, "src/data/links.snapshot.json")
 const AVATAR_DIR = path.join(root, "public/team")
+
 const ENDPOINT = "https://crafter.run/links.json"
+const RAW = "https://raw.githubusercontent.com/crafter-station/crafter.run/main/apps/web/lib"
+
 const SIZE = 96
 
+async function fetchText(url, timeout = 15_000) {
+  const response = await fetch(url, { signal: AbortSignal.timeout(timeout) })
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  return response.text()
+}
+
+/** Tier 1: the published endpoint. What this should use once crafter.run#81 merges. */
+async function fromEndpoint() {
+  const body = await fetchText(ENDPOINT)
+  const data = JSON.parse(body)
+  if (!Array.isArray(data?.members) || data.members.length === 0) throw new Error("payload has no members")
+  if (!data.org?.socials?.length || !data.org?.products?.length) throw new Error("payload has no org links")
+  return { data, via: ENDPOINT }
+}
+
+/**
+ * Tier 2: crafter.run's TypeScript source on GitHub. Keeps the fallback
+ * refreshable while /links.json does not exist, so the snapshot never has to be
+ * hand-edited - which would quietly make it a second source of truth.
+ */
+async function fromSource() {
+  const [teamSource, siteSource] = await Promise.all([fetchText(`${RAW}/team.ts`), fetchText(`${RAW}/site.ts`)])
+  return { data: deriveSnapshot({ teamSource, siteSource }), via: `${RAW}/{team,site}.ts` }
+}
+
 async function refreshSnapshot() {
-  try {
-    const response = await fetch(ENDPOINT, { signal: AbortSignal.timeout(10_000) })
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  const attempts = [
+    ["endpoint", fromEndpoint],
+    ["source", fromSource],
+  ]
 
-    const data = await response.json()
-    if (!Array.isArray(data?.members) || data.members.length === 0) throw new Error("payload has no members")
-
-    await writeFile(SNAPSHOT, `${JSON.stringify(data, null, 2)}\n`)
-    console.log(`snapshot  updated from ${ENDPOINT} (${data.members.length} members)`)
-    return data
-  } catch (error) {
-    // Expected until the crafter.run PR adding /links.json is merged.
-    console.warn(`snapshot  ${ENDPOINT} unavailable (${error.message}) - keeping the committed snapshot`)
-    return JSON.parse(await readFile(SNAPSHOT, "utf8"))
+  for (const [label, attempt] of attempts) {
+    try {
+      const { data, via } = await attempt()
+      await writeFile(SNAPSHOT, `${JSON.stringify(data, null, 2)}\n`)
+      console.log(`snapshot  updated from ${via} (${data.members.length} members)`)
+      return data
+    } catch (error) {
+      console.warn(`snapshot  ${label} unavailable (${error.message})`)
+    }
   }
+
+  console.warn("snapshot  every source failed - keeping the committed snapshot")
+  return JSON.parse(await readFile(SNAPSHOT, "utf8"))
 }
 
 async function refreshAvatars(members) {
@@ -67,7 +99,7 @@ async function refreshAvatars(members) {
 
       await writeFile(target, output)
       written += 1
-      const kb = (n) => `${(n / 1024).toFixed(0)} KB`
+      const kb = (n) => `${(n / 1024).toFixed(1)} KB`
       console.log(`avatar    ${member.username}: ${kb(source.length)} -> ${kb(output.length)}`)
     } catch (error) {
       console.error(`avatar    ${member.username}: FAILED (${error.message})`)

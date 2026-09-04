@@ -12,17 +12,30 @@ Static Astro. No client framework, no analytics, ~240 KB for the whole site.
 **crafter.run owns the data; this repo only renders it.**
 
 At build time the site fetches `https://crafter.run/links.json` and falls back to
-the committed `src/data/links.snapshot.json` if that endpoint is unreachable — a
-redeploy here must never fail because the main site is mid-deploy.
+the committed `src/data/links.snapshot.json` if that endpoint is unreachable or
+returns a payload missing required fields — a redeploy here must never fail, or
+render `/undefined`, because the main site is mid-deploy.
 
-> The `/links.json` endpoint does not exist upstream yet. Until the crafter.run
-> PR adding it is merged, every build uses the snapshot. Nothing else changes
-> when it lands.
+> The `/links.json` endpoint does not exist upstream yet
+> ([crafter.run#81](https://github.com/crafter-station/crafter.run/pull/81)).
+> Until it merges, **every build uses the snapshot.** Nothing else changes when
+> it lands.
 
-The snapshot is derived from `apps/web/lib/team.ts` and `apps/web/lib/site.ts` in
-[`crafter-station/crafter.run`](https://github.com/crafter-station/crafter.run).
-It deliberately omits `email`: two members have one and one is a personal Gmail,
-which is a bigger exposure as a JSON endpoint than as a TypeScript file.
+Because the snapshot is load-bearing until then, it is never hand-edited.
+`npm run sync` refreshes it through three tiers, in order:
+
+| # | Source | When |
+|---|---|---|
+| 1 | `https://crafter.run/links.json` | Once #81 ships — the intended path |
+| 2 | `lib/team.ts` + `lib/site.ts`, raw from GitHub | Today. Parsed by `scripts/derive-snapshot.mjs` into the exact shape tier 1 will return |
+| 3 | The committed snapshot | Everything upstream is unreachable |
+
+Tier 2 exists so the fallback stays refreshable while there is no endpoint to
+fetch. Its parsers throw if they match nothing, so an upstream refactor fails
+loudly here rather than silently emptying the site.
+
+The data deliberately omits `email`: two members have one and one is a personal
+Gmail, which is a bigger exposure as a published JSON file than as TypeScript.
 
 Full profiles — bio, stack, hardware, projects — stay on crafter.run. Each
 crafter's page links out to `crafter.run/en/team/<username>` rather than
