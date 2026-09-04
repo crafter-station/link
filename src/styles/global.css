@@ -1,0 +1,424 @@
+/*
+  Tokens mirror crafter.run's `apps/web/app/globals.css` so both sites read as
+  one system. Values are copied verbatim, including the light-mode decision to
+  drop the cream accent: it measures 1.17:1 on white, so light mode goes
+  monochrome and leans on weight and scale for hierarchy instead of hue.
+*/
+:root {
+  color-scheme: light;
+
+  --background: 0 0% 100%;
+  --foreground: 0 0% 8%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 42%;
+  --accent: 0 0% 8%;
+  --accent-foreground: 0 0% 98%;
+  --line: 0 0% 90%;
+  --radius: 0.5rem;
+
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shell: 34rem;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: 0 0% 5%;
+  --foreground: 0 0% 96%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 40 30% 92%;
+  --accent-foreground: 0 0% 5%;
+  --line: 0 0% 16%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: hsl(var(--line));
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* crafter.run's signature micro-label: mono, tiny, wide-tracked, uppercase. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ---------------------------------------------------------------- chrome - */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.125rem 0;
+  border-bottom: 1px solid hsl(var(--line));
+}
+
+.theme-toggle {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+  background: none;
+  border: 1px solid hsl(var(--line));
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.3rem 0.55rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--muted-foreground));
+}
+
+/* ------------------------------------------------------------------ hero - */
+
+.hero {
+  padding: 3rem 0 2.5rem;
+  text-align: center;
+}
+
+.hero-mark {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--line));
+  object-fit: cover;
+}
+
+/* Two files rather than one currentColor mark: these are the shipped brand
+   assets from crafter.run's brand kit, and re-inking them would fork the mark. */
+.mark-dark {
+  display: none;
+}
+
+.dark .mark-light {
+  display: none;
+}
+
+.dark .mark-dark {
+  display: block;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.hero p {
+  margin: 0.625rem auto 0;
+  max-width: 26rem;
+  color: hsl(var(--muted-foreground));
+  text-wrap: balance;
+}
+
+.hero .label {
+  display: block;
+  margin-bottom: 0.875rem;
+}
+
+/* --------------------------------------------------------------- section - */
+
+.section {
+  padding: 2rem 0;
+  border-top: 1px solid hsl(var(--line));
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-head .count {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ----------------------------------------------------------------- rows -- */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid hsl(var(--line));
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.row:hover {
+  border-color: hsl(var(--foreground) / 0.35);
+  background: hsl(var(--muted) / 0.55);
+}
+
+.row:active {
+  transform: translateY(1px);
+}
+
+.row-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.row-title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.row-sub {
+  margin-top: 0.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: hsl(var(--muted-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-arrow {
+  flex: none;
+  color: hsl(var(--muted-foreground));
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.row:hover .row-arrow {
+  color: hsl(var(--foreground));
+  transform: translate(2px, -2px);
+}
+
+/* The one place the warm cream accent earns its keep: the single primary CTA. */
+.row-primary {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--accent));
+}
+
+.row-primary:hover {
+  background: hsl(var(--accent));
+  border-color: hsl(var(--accent));
+  opacity: 0.9;
+}
+
+.row-primary .row-sub,
+.row-primary .row-arrow {
+  color: hsl(var(--accent-foreground) / 0.7);
+}
+
+.row-primary:hover .row-arrow {
+  color: hsl(var(--accent-foreground));
+}
+
+/* ---------------------------------------------------------------- people - */
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+@media (max-width: 26rem) {
+  .people {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--line));
+  border-radius: var(--radius);
+  min-width: 0;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.person:hover {
+  border-color: hsl(var(--foreground) / 0.35);
+  background: hsl(var(--muted) / 0.55);
+}
+
+.person-avatar {
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  object-fit: cover;
+  background: hsl(var(--muted));
+}
+
+.person-body {
+  min-width: 0;
+}
+
+.person-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-role {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  color: hsl(var(--muted-foreground));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------- profile - */
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.125rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+  transition: color 0.15s ease;
+}
+
+.back:hover {
+  color: hsl(var(--foreground));
+}
+
+.profile {
+  padding: 2.25rem 0 2rem;
+  text-align: center;
+  border-top: 1px solid hsl(var(--line));
+}
+
+.profile-avatar {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 1rem;
+  border-radius: 999px;
+  object-fit: cover;
+  background: hsl(var(--muted));
+}
+
+.profile h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.profile-meta {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+  border: 1px solid hsl(var(--line));
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+/* ---------------------------------------------------------------- footer - */
+
+.footer {
+  border-top: 1px solid hsl(var(--line));
+  padding: 1.75rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.footer a:hover {
+  color: hsl(var(--foreground));
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 2px;
+  border-radius: calc(var(--radius) - 2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

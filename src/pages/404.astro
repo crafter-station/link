@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro"
+import ArrowLink from "../components/ArrowLink.astro"
+---
+
+<Base title="Not found — Crafter Station" description="That link does not exist on link.crafter.run.">
+  <section class="hero">
+    <span class="label">404</span>
+    <h1>No link here</h1>
+    <p>That crafter or page does not exist. Everything we have is one tap away.</p>
+  </section>
+
+  <section class="section">
+    <div class="rows">
+      <ArrowLink href="/" title="All links" sub="link.crafter.run" primary external={false} />
+      <ArrowLink href="https://crafter.run" title="crafter.run" sub="The full site" />
+    </div>
+  </section>
+</Base>

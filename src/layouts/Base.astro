@@ -1,0 +1,114 @@
+---
+import "../styles/global.css"
+
+type Props = {
+  title: string
+  description: string
+  image?: string
+}
+
+const { title, description, image } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://link.crafter.run")
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Crafter Station" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary" : "summary_large_image"} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+
+    {/* Runs before first paint so a dark-mode visitor never sees a white flash. */}
+    <script is:inline>
+      ;(() => {
+        try {
+          const stored = localStorage.getItem("theme")
+          const dark = stored === "dark" || (!stored && matchMedia("(prefers-color-scheme: dark)").matches)
+          if (dark) document.documentElement.classList.add("dark")
+        } catch {}
+      })()
+    </script>
+  </head>
+
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <a class="label" href="/" style="color: inherit">link.crafter.run</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-live="polite">
+          <span data-theme-label>sys</span>
+          <span class="visually-hidden">Switch colour theme</span>
+        </button>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="footer">
+        <a class="label" href="https://crafter.run" target="_blank" rel="noopener noreferrer">
+          crafter.run
+        </a>
+        <span class="label">Built fast, built well.</span>
+      </footer>
+    </div>
+
+    <script is:inline>
+      ;(() => {
+        const button = document.querySelector("[data-theme-toggle]")
+        const label = document.querySelector("[data-theme-label]")
+        if (!button || !label) return
+
+        const media = matchMedia("(prefers-color-scheme: dark)")
+        const read = () => {
+          try {
+            return localStorage.getItem("theme") ?? "system"
+          } catch {
+            return "system"
+          }
+        }
+
+        const apply = (mode) => {
+          const dark = mode === "dark" || (mode === "system" && media.matches)
+          document.documentElement.classList.toggle("dark", dark)
+          label.textContent = mode === "system" ? "sys" : mode
+        }
+
+        apply(read())
+
+        // Only follow the OS while the visitor hasn't picked a side themselves.
+        media.addEventListener("change", () => {
+          if (read() === "system") apply("system")
+        })
+
+        button.addEventListener("click", () => {
+          const next = { system: "light", light: "dark", dark: "system" }[read()] ?? "system"
+          try {
+            if (next === "system") localStorage.removeItem("theme")
+            else localStorage.setItem("theme", next)
+          } catch {}
+          apply(next)
+        })
+      })()
+    </script>
+  </body>
+</html>

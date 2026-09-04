@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro"
+import ArrowLink from "../components/ArrowLink.astro"
+import { links, avatarFor, displayHref } from "../lib/links"
+
+const { org, members } = links
+
+const social = (label: string) => org.socials.find((entry) => entry.label === label)
+
+// Grouped by what the visitor came to do, not by the shape of the source data.
+// "Research" lives in `socials` upstream but is a product here, so it is left
+// to the products list rather than shown twice.
+const community = ["WhatsApp", "Discord", "Luma"]
+  .map(social)
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+
+const follow = ["GitHub", "X", "Instagram", "YouTube"]
+  .map(social)
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+
+const COMMUNITY_BLURB: Record<string, string> = {
+  WhatsApp: "1000+ builders on crafters.chat",
+  Discord: "Chat with the crafters",
+  Luma: "Events and hackathons",
+}
+---
+
+<Base
+  title="Crafter Station — every link"
+  description="Every Crafter Station link in one place: the community, what we build, and each crafter's profile."
+>
+  <section class="hero">
+    <img class="hero-mark mark-light" src="/brand/mark-light.svg" alt="Crafter Station" width="56" height="56" />
+    <img class="hero-mark mark-dark" src="/brand/mark-dark.svg" alt="" width="56" height="56" aria-hidden="true" />
+    <span class="label">Crafter Station · LatAm</span>
+    <h1>{org.tagline}</h1>
+    <p>
+      A community of 1000+ builders, an open-source ecosystem, products, research and events —
+      helping LatAm shippers meet, learn and build in public.
+    </p>
+  </section>
+
+  <section class="section" style="border-top: 0; padding-top: 0">
+    <div class="rows">
+      <ArrowLink href={org.url} title="crafter.run" sub="The full site" primary />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">Community</h2>
+      <span class="count">{community.length}</span>
+    </div>
+    <div class="rows">
+      {
+        community.map((entry) => (
+          <ArrowLink
+            href={entry.href}
+            title={entry.label}
+            sub={COMMUNITY_BLURB[entry.label] ?? displayHref(entry.href)}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">What we build</h2>
+      <span class="count">{org.products.length}</span>
+    </div>
+    <div class="rows">
+      {
+        org.products.map((product) => (
+          <ArrowLink href={product.url} title={product.title} sub={product.tagline ?? displayHref(product.url)} />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">The crafters</h2>
+      <span class="count">{members.length}</span>
+    </div>
+    <div class="people">
+      {
+        members.map((member) => (
+          <a class="person" href={`/${member.username}/`}>
+            <img
+              class="person-avatar"
+              src={avatarFor(member)}
+              alt=""
+              width="36"
+              height="36"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="person-body">
+              <span class="person-name">{member.name}</span>
+              <span class="person-role">{member.role}</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">Follow along</h2>
+      <span class="count">{follow.length}</span>
+    </div>
+    <div class="rows">
+      {follow.map((entry) => <ArrowLink href={entry.href} title={entry.label} sub={displayHref(entry.href)} />)}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,84 @@
+---
+import Base from "../layouts/Base.astro"
+import ArrowLink from "../components/ArrowLink.astro"
+import { links, avatarFor, displayHref, LINK_LABELS } from "../lib/links"
+import type { Member } from "../lib/links"
+
+export async function getStaticPaths() {
+  return links.members.map((member) => ({
+    params: { username: member.username },
+    props: { member },
+  }))
+}
+
+type Props = { member: Member }
+
+const { member } = Astro.props
+
+// Bio, stack and gear deliberately stay on crafter.run. This page is the links.
+const description = `${member.name} — ${member.role} at Crafter Station. Every link in one place.`
+---
+
+<Base title={`${member.name} — Crafter Station`} description={description} image={member.image ?? undefined}>
+  <a class="back" href="/">
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 14 14"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M8.5 3 4.5 7l4 4" />
+    </svg>
+    All crafters
+  </a>
+
+  <section class="profile">
+    <img
+      class="profile-avatar"
+      src={avatarFor(member)}
+      alt={member.name}
+      width="80"
+      height="80"
+      decoding="async"
+    />
+    <h1>{member.name}</h1>
+    <div class="profile-meta">
+      <span class="chip">{member.role}</span>
+      {member.location && <span class="chip">{member.location}</span>}
+      {member.joinedYear && <span class="chip">Since {member.joinedYear}</span>}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">Links</h2>
+      <span class="count">{member.links.length}</span>
+    </div>
+    <div class="rows">
+      {
+        member.links.length > 0 ? (
+          member.links.map((link) => (
+            <ArrowLink href={link.href} title={LINK_LABELS[link.kind]} sub={displayHref(link.href)} />
+          ))
+        ) : (
+          <p class="label">No public links yet.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">More</h2>
+    </div>
+    <div class="rows">
+      <ArrowLink href={member.url} title="Full profile" sub={displayHref(member.url)} primary />
+      <ArrowLink href="https://crafters.chat" title="Join the community" sub="crafters.chat" />
+    </div>
+  </section>
+</Base>

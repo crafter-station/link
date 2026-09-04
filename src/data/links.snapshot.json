@@ -1,0 +1,492 @@
+{
+  "generatedAt": "2026-09-04T23:01:08.215Z",
+  "source": "https://github.com/crafter-station/crafter.run",
+  "org": {
+    "name": "Crafter Station",
+    "tagline": "The LatAm network of shippers",
+    "url": "https://crafter.run",
+    "socials": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/crafter-station"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/CrafterStation"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://instagram.com/crafter.station/"
+      },
+      {
+        "label": "YouTube",
+        "href": "https://www.youtube.com/@crafterstation"
+      },
+      {
+        "label": "Discord",
+        "href": "https://discord.gg/crafterstation"
+      },
+      {
+        "label": "WhatsApp",
+        "href": "https://crafters.chat"
+      },
+      {
+        "label": "Luma",
+        "href": "https://luma.com/hack0"
+      },
+      {
+        "label": "Research",
+        "href": "https://research.crafter.ing/"
+      }
+    ],
+    "products": [
+      {
+        "slug": "hack0",
+        "title": "hack0",
+        "tagline": "The live LATAM builder index",
+        "url": "https://hack0.dev",
+        "sourceUrl": "https://github.com/crafter-station/hack0"
+      },
+      {
+        "slug": "petdex",
+        "title": "Petdex",
+        "tagline": "The Codex pet index",
+        "url": "https://petdex.dev",
+        "sourceUrl": "https://github.com/crafter-station/petdex"
+      },
+      {
+        "slug": "legalize-pe",
+        "title": "Legalize PE",
+        "tagline": "Peruvian law as a git repo",
+        "url": "https://legalize-pe.crafter.ing/",
+        "sourceUrl": "https://github.com/crafter-research/legalize-pe"
+      },
+      {
+        "slug": "normal",
+        "title": "Normal",
+        "tagline": "Your WhatsApp, inside ChatGPT and Claude",
+        "url": "https://normal.fast"
+      },
+      {
+        "slug": "maca",
+        "title": "Maca",
+        "tagline": "Voice-to-text blazing fast",
+        "url": "https://maca.sh/"
+      },
+      {
+        "slug": "visagente",
+        "title": "Visagente",
+        "tagline": "Advance your U.S. visa appointment",
+        "url": "https://visagente.com/"
+      },
+      {
+        "slug": "shipping-bible",
+        "title": "Shipping Bible",
+        "tagline": "Our playbook for shipping consistently",
+        "url": "https://theshippingbible.com/"
+      },
+      {
+        "slug": "research",
+        "title": "research",
+        "tagline": "AI-first engineering research from Crafter Station",
+        "url": "https://research.crafter.ing/"
+      },
+      {
+        "slug": "tinte",
+        "title": "tinte",
+        "tagline": "AI theme generator for VS Code, Shadcn, and beyond",
+        "url": "https://tinte.dev",
+        "sourceUrl": "https://github.com/Railly/tinte"
+      },
+      {
+        "slug": "lupa",
+        "title": "lupa",
+        "tagline": "Search that actually understands your codebase",
+        "url": "https://lupa.dev",
+        "sourceUrl": "https://github.com/crafter-station/lupa"
+      },
+      {
+        "slug": "elements",
+        "title": "elements",
+        "tagline": "A registry of production-ready UI elements",
+        "url": "https://tryelements.dev",
+        "sourceUrl": "https://github.com/crafter-station/elements"
+      },
+      {
+        "slug": "text0",
+        "title": "crafter-research GitHub",
+        "tagline": "The editor we wished we had",
+        "url": "https://text0.dev",
+        "sourceUrl": "https://github.com/crafter-station/text0"
+      }
+    ]
+  },
+  "members": [
+    {
+      "username": "shiara",
+      "name": "Shiara Arauzo",
+      "role": "Design Engineer",
+      "location": "Lima, Peru",
+      "image": "https://crafter.run/team/shiara.png",
+      "url": "https://crafter.run/en/team/shiara",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://shiara.design"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/shiarauzo"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/shiarauzo"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/shiara-arauzo/"
+        },
+        {
+          "kind": "instagram",
+          "href": "https://www.instagram.com/shiaraarauzo/"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/shiara-arauzo/30-min"
+        }
+      ]
+    },
+    {
+      "username": "railly",
+      "name": "Railly Hugo",
+      "role": "Founder",
+      "location": "Buenos Aires, Argentina",
+      "image": "https://crafter.run/team/railly.png",
+      "url": "https://crafter.run/en/team/railly",
+      "joinedYear": 2023,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://railly.dev"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/Railly"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/raillyhugo"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://linkedin.com/in/railly-hugo"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/railly/30min"
+        }
+      ]
+    },
+    {
+      "username": "cuevaio",
+      "name": "Anthony Cueva",
+      "role": "Product Engineer",
+      "location": "Somewhere in the world",
+      "image": "https://crafter.run/team/cueva.png",
+      "url": "https://crafter.run/en/team/cuevaio",
+      "joinedYear": 2023,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://www.cueva.io"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/cuevaio"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/cuevaio"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://linkedin.com/in/cuevaio"
+        },
+        {
+          "kind": "instagram",
+          "href": "https://www.instagram.com/cueva.io"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/cuevaio/30min"
+        }
+      ]
+    },
+    {
+      "username": "emmy",
+      "name": "Emmy Arias",
+      "role": "Growth & Marketing",
+      "location": "Bogota, Colombia",
+      "image": "https://crafter.run/team/emmy.png",
+      "url": "https://crafter.run/en/team/emmy",
+      "joinedYear": 2025,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://emmy-pardo.vercel.app"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/estparcae"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/ed-pardo/"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/emms-pardo/30min"
+        }
+      ]
+    },
+    {
+      "username": "cris",
+      "name": "Cristian Correa",
+      "role": "Data & Software Engineer",
+      "location": "Bogota, Colombia",
+      "image": "https://crafter.run/team/cris.png",
+      "url": "https://crafter.run/en/team/cris",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://cris.fast"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/camilocbarrera"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/camilocbarrera"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/cristiancamilocorrea/"
+        },
+        {
+          "kind": "instagram",
+          "href": "https://www.instagram.com/cristiancorrea.xyz/"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/cristian-correa/30min"
+        }
+      ]
+    },
+    {
+      "username": "nicolas",
+      "name": "Nicolas Vargas",
+      "role": "AI Engineer",
+      "location": "Bogota, Colombia",
+      "image": "https://crafter.run/team/nicolas.png",
+      "url": "https://crafter.run/en/team/nicolas",
+      "joinedYear": 2025,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://uprizing.me/"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/MrUprizing"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/MrUprizing"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/uprizing/30min"
+        }
+      ]
+    },
+    {
+      "username": "nacho",
+      "name": "Ignacio Velasquez",
+      "role": "Growth & Automation",
+      "location": "Arequipa, Peru",
+      "image": "https://crafter.run/team/nacho.png",
+      "url": "https://crafter.run/en/team/nacho",
+      "joinedYear": 2025,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://theveller.gumroad.com/"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/TheVeller"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/ignacio-vel%C3%A1squez-franco-3a5765204/"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/ignacio-velasquez-franco/30min"
+        }
+      ]
+    },
+    {
+      "username": "ignacio",
+      "name": "Ignacio Rueda",
+      "role": "Backend Engineer",
+      "location": "Lima, Peru",
+      "image": "https://crafter.run/team/ignacio.png",
+      "url": "https://crafter.run/en/team/ignacio",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "github",
+          "href": "https://github.com/Jibaru"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/ignacior97/"
+        },
+        {
+          "kind": "cal",
+          "href": "https://cal.com/irueda/30min"
+        }
+      ]
+    },
+    {
+      "username": "liz",
+      "name": "Liz Riveros",
+      "role": "Project Manager",
+      "location": "Lima, Peru",
+      "image": "https://crafter.run/team/liz.png",
+      "url": "https://crafter.run/en/team/liz",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/lizethriveros/"
+        }
+      ]
+    },
+    {
+      "username": "gabriel",
+      "name": "Gabriel Antunes",
+      "role": "AI Engineer · Full-Stack",
+      "location": "Vila Velha, Brazil",
+      "image": "https://crafter.run/team/gabriel.png",
+      "url": "https://crafter.run/en/team/gabriel",
+      "joinedYear": 2026,
+      "links": [
+        {
+          "kind": "github",
+          "href": "https://github.com/antunesgabriel"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/gabriel-antunes/"
+        }
+      ]
+    },
+    {
+      "username": "tarmeno",
+      "name": "Carlos Tarmeno",
+      "role": "Frontend Engineer",
+      "location": "Lima, Peru",
+      "image": "https://crafter.run/team/tarmeno.png",
+      "url": "https://crafter.run/en/team/tarmeno",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://www.carlostarmeno.com/"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/carlosdtn"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/carlos-tarmeno/"
+        }
+      ]
+    },
+    {
+      "username": "juan",
+      "name": "Juan Ortega",
+      "role": "Software Engineer",
+      "location": "Bogotá, Colombia",
+      "image": "https://crafter.run/team/juan.png",
+      "url": "https://crafter.run/en/team/juan",
+      "joinedYear": 2026,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://visagente.com"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/juanortega10"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/juanortegariveros/"
+        }
+      ]
+    },
+    {
+      "username": "edward",
+      "name": "Edward Ramos",
+      "role": "Frontend Engineer",
+      "location": "Lima, Peru",
+      "image": "https://crafter.run/team/edward.png",
+      "url": "https://crafter.run/en/team/edward",
+      "joinedYear": 2024,
+      "links": [
+        {
+          "kind": "website",
+          "href": "https://www.edwardr.dev/"
+        },
+        {
+          "kind": "github",
+          "href": "https://github.com/EdwardR0507"
+        },
+        {
+          "kind": "x",
+          "href": "https://x.com/EdRamosV"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/edwardramosvillarreal/"
+        }
+      ]
+    },
+    {
+      "username": "henryjing",
+      "name": "Henry Jing",
+      "role": "China Community Lead",
+      "location": "Beijing, China",
+      "image": "https://crafter.run/team/henryjing.png",
+      "url": "https://crafter.run/en/team/henryjing",
+      "joinedYear": 2026,
+      "links": [
+        {
+          "kind": "github",
+          "href": "https://github.com/henryjing96"
+        },
+        {
+          "kind": "linkedin",
+          "href": "https://www.linkedin.com/in/henryjing96/"
+        }
+      ]
+    }
+  ]
+}
