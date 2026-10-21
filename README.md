@@ -43,7 +43,7 @@ restating any of it.
 
 ## Design
 
-Crafter's dark palette and type from [crafter.run/design.md](https://crafter.run/design.md): deep olive canvas, warm paper text, station soft yellow as the one accent, Crafter Sans Display and Text (SIL OFL, `public/fonts`). The background is the micelio WebGL shader from [linkmi](https://github.com/Railly/link) tinted to that palette, with linkmi-style numbered glass rows. The universe tiles use the four area colours from crafter.run/universe.
+Crafter's dark palette and type from [crafter.run/design.md](https://crafter.run/design.md): deep olive canvas, warm paper text, station soft yellow as the one accent, Crafter Sans Display and Text (SIL OFL, `public/fonts`). The background is the micelio WebGL shader from [linkmi](https://github.com/sofiaferro/linkmi) by Sofía Ferro, credited in the footer, tinted to that palette, with linkmi-style numbered glass rows. The universe tiles use the four area colours from crafter.run/universe.
 
 Products, the LinkedIn page and the Discord invite are set in `src/lib/links.ts` while `crafter.run/links.json` publishes no products.
 
