@@ -65,6 +65,7 @@ export const SOCIAL_ICONS: Record<string, IconName> = {
   WhatsApp: "whatsapp",
   Luma: "luma",
   Research: "link",
+  LinkedIn: "linkedin",
 }
 
 export function iconForSocial(label: string): IconName {

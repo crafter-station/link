@@ -21,7 +21,7 @@ const AVATAR_DIR = path.join(root, "public/team")
 const ENDPOINT = "https://crafter.run/links.json"
 const RAW = "https://raw.githubusercontent.com/crafter-station/crafter.run/main/apps/web/lib"
 
-const SIZE = 96
+const SIZE = 224
 
 async function fetchText(url, timeout = 15_000) {
   const response = await fetch(url, { signal: AbortSignal.timeout(timeout) })
@@ -34,7 +34,7 @@ async function fromEndpoint() {
   const body = await fetchText(ENDPOINT)
   const data = JSON.parse(body)
   if (!Array.isArray(data?.members) || data.members.length === 0) throw new Error("payload has no members")
-  if (!data.org?.socials?.length || !data.org?.products?.length) throw new Error("payload has no org links")
+  if (!data.org?.socials?.length) throw new Error("payload has no org links")
   return { data, via: ENDPOINT }
 }
 
@@ -93,7 +93,7 @@ async function refreshAvatars(members) {
 
       const source = Buffer.from(await response.arrayBuffer())
       const output = await sharp(source)
-        .resize(SIZE, SIZE, { fit: "cover", position: "attention" })
+        .resize(SIZE, SIZE, { fit: "cover", position: "top" })
         .webp({ quality: 82 })
         .toBuffer()
 

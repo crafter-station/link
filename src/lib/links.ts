@@ -59,7 +59,7 @@ async function load(): Promise<LinksData> {
     if (!Array.isArray(data?.members) || data.members.length === 0) {
       throw new Error("payload has no members")
     }
-    if (!data.org?.socials?.length || !data.org?.products?.length) {
+    if (!data.org?.socials?.length) {
       throw new Error("payload has no org links")
     }
 
@@ -82,7 +82,45 @@ async function load(): Promise<LinksData> {
   }
 }
 
-export const links: LinksData = await load()
+const raw = await load()
+
+// crafter.run does not publish products yet, and its Discord invite is stale.
+// These are the projects and links we stand behind today.
+const PRODUCTS: Product[] = [
+  { slug: "makeables", title: "Makeables", tagline: "Stickers, badges y kits que diseñas con tu agente", url: "https://makeables.dev" },
+  { slug: "petdex", title: "Petdex", tagline: "Mascotas animadas para Codex, Claude Code y más", url: "https://petdex.dev", sourceUrl: "https://github.com/crafter-station/petdex" },
+  { slug: "elements", title: "Elements", tagline: "Bloques full-stack de shadcn/ui", url: "https://www.tryelements.dev", sourceUrl: "https://github.com/crafter-station/elements" },
+  { slug: "text0", title: "text0", tagline: "Autocompletado inteligente y personal", url: "https://text0.dev", sourceUrl: "https://github.com/crafter-station/text0" },
+  { slug: "hack0", title: "hack0", tagline: "Hackathons y eventos tech en LATAM", url: "https://hack0.dev", sourceUrl: "https://github.com/crafter-station/hack0" },
+]
+
+const SOCIAL_OVERRIDES: Record<string, string> = {
+  Discord: "https://discord.gg/kgsjU4sD7",
+}
+
+const EXTRA_SOCIALS: Social[] = [{ label: "LinkedIn", href: "https://www.linkedin.com/company/crafter-station/" }]
+
+export const links: LinksData = {
+  ...raw,
+  org: {
+    ...raw.org,
+    products: raw.org.products?.length ? raw.org.products : PRODUCTS,
+    socials: [
+      ...raw.org.socials.map((entry) => ({ ...entry, href: SOCIAL_OVERRIDES[entry.label] ?? entry.href })),
+      ...EXTRA_SOCIALS.filter((extra) => !raw.org.socials.some((entry) => entry.label === extra.label)),
+    ],
+  },
+}
+
+export type NetworkArea = { id: string; name: string; tagline: string; url: string }
+
+/** The four directions of the Crafter universe, in their crafter.run colours. */
+export const NETWORK: (NetworkArea & { bg: string; ink: string })[] = [
+  { id: "research", name: "Research", tagline: "Seguir las buenas preguntas", url: "https://crafter.ing", bg: "#dce6c9", ink: "#304a32" },
+  { id: "lab", name: "Lab", tagline: "Ideas que toman forma física", url: "https://github.com/crafter-lab", bg: "#dce7ed", ink: "#324c60" },
+  { id: "games", name: "Games", tagline: "La curiosidad también juega", url: "https://games.crafter.run", bg: "#e6def1", ink: "#554168" },
+  { id: "station", name: "Station", tagline: "Construir se disfruta en compañía", url: "https://crafter.run/es", bg: "#f0e7bf", ink: "#554b27" },
+]
 
 export const LINK_LABELS: Record<LinkKind, string> = {
   website: "Website",
@@ -90,7 +128,7 @@ export const LINK_LABELS: Record<LinkKind, string> = {
   x: "X",
   linkedin: "LinkedIn",
   instagram: "Instagram",
-  cal: "Book a call",
+  cal: "Agenda una llamada",
 }
 
 /** `https://www.linkedin.com/in/railly-hugo/` -> `linkedin.com/in/railly-hugo` */
