@@ -1,4 +1,4 @@
-// Micelio background, adapted from linkmi (github.com/Railly/link, MIT).
+// Micelio background, adapted from linkmi by Sofía Ferro (github.com/sofiaferro/linkmi, MIT).
 // Colours are Crafter's dark palette: olive ink, a deeper olive, station soft yellow.
 
 const VERTEX = `
