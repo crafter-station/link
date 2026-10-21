@@ -366,6 +366,14 @@ img {
   justify-content: space-between;
   padding-top: 40px;
 }
+.credit {
+  text-transform: none;
+  opacity: 0.6;
+  transition: opacity 160ms ease;
+}
+.credit:hover {
+  opacity: 1;
+}
 .footer a:hover {
   color: var(--ink);
 }
