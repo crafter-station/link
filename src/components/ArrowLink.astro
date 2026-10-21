@@ -7,11 +7,12 @@ type Props = {
   title: string
   sub?: string
   icon?: IconName
+  index?: number
   primary?: boolean
   external?: boolean
 }
 
-const { href, title, sub, icon, primary = false, external = true } = Astro.props
+const { href, title, sub, icon, index, primary = false, external = true } = Astro.props
 ---
 
 <a
@@ -19,6 +20,7 @@ const { href, title, sub, icon, primary = false, external = true } = Astro.props
   href={href}
   {...external ? { target: "_blank", rel: "noopener noreferrer" } : {}}
 >
+  {index !== undefined && <span class="row-index">{String(index).padStart(2, "0")}</span>}
   {
     icon && (
       <span class="row-icon">

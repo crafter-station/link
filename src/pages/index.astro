@@ -1,68 +1,53 @@
 ---
 import Base from "../layouts/Base.astro"
 import ArrowLink from "../components/ArrowLink.astro"
-import { links, avatarFor, displayHref } from "../lib/links"
+import Mark from "../components/Mark.astro"
+import { links, avatarFor, displayHref, NETWORK } from "../lib/links"
 import { iconForSocial } from "../lib/icons"
 
 const { org, members } = links
 
 const social = (label: string) => org.socials.find((entry) => entry.label === label)
+const pick = (labels: string[]) =>
+  labels.map(social).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
 
-// Grouped by what the visitor came to do, not by the shape of the source data.
-// "Research" lives in `socials` upstream but is a product here, so it is left
-// to the products list rather than shown twice.
-const community = ["WhatsApp", "Discord", "Luma"]
-  .map(social)
-  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
-
-const follow = ["GitHub", "X", "Instagram", "YouTube"]
-  .map(social)
-  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
+// Grouped by what the visitor came to do. "Research" lives in `socials`
+// upstream but is shown in the universe tiles instead.
+const community = pick(["WhatsApp", "Discord", "Luma"])
+const follow = pick(["LinkedIn", "GitHub", "X", "Instagram", "YouTube"])
 
 const COMMUNITY_BLURB: Record<string, string> = {
-  WhatsApp: "1000+ builders on crafters.chat",
-  Discord: "Chat with the crafters",
-  Luma: "Events and hackathons",
+  WhatsApp: "1.000+ builders en crafters.chat",
+  Discord: "Conversa con los crafters",
+  Luma: "Eventos y hackathons en hack0",
 }
+
+let n = 0
+const next = () => ++n
 ---
 
 <Base
-  title="Crafter Station — every link"
-  description="Every Crafter Station link in one place: the community, what we build, and each crafter's profile."
+  title="Crafter Station · todos los links"
+  description="Todos los links de Crafter Station: la comunidad, lo que construimos y cada crafter."
 >
   <section class="hero">
-    <img
-      class="hero-mark mark-on-light"
-      src="/brand/mark-on-light.svg"
-      alt="Crafter Station"
-      width="56"
-      height="56"
-    />
-    <img
-      class="hero-mark mark-on-dark"
-      src="/brand/mark-on-dark.svg"
-      alt=""
-      width="56"
-      height="56"
-      aria-hidden="true"
-    />
-    <span class="label">Crafter Station · LatAm</span>
-    <h1>{org.tagline}</h1>
-    <p>
-      A community of 1000+ builders, an open-source ecosystem, products, research and events —
-      helping LatAm shippers meet, learn and build in public.
-    </p>
+    <a class="wordmark" href={org.url} target="_blank" rel="noopener noreferrer" aria-label="Crafter Station">
+      <Mark />
+      <span>crafter<br />station</span>
+    </a>
+    <h1>Craft. Ship. <em>Repeat.</em></h1>
+    <p>Una comunidad para convertir la curiosidad en proyectos, desde el Perú para LATAM.</p>
   </section>
 
-  <section class="section" style="border-top: 0; padding-top: 0">
+  <section class="section" style="padding-top: 0">
     <div class="rows">
-      <ArrowLink href={org.url} title="crafter.run" sub="The full site" icon="link" primary />
+      <ArrowLink href="https://crafters.chat" title="Únete a la comunidad" sub="WhatsApp · crafters.chat" icon="whatsapp" primary />
     </div>
   </section>
 
   <section class="section">
     <div class="section-head">
-      <h2 class="label">Community</h2>
+      <h2 class="label">Comunidad</h2>
       <span class="count">{community.length}</span>
     </div>
     <div class="rows">
@@ -73,6 +58,7 @@ const COMMUNITY_BLURB: Record<string, string> = {
             title={entry.label}
             sub={COMMUNITY_BLURB[entry.label] ?? displayHref(entry.href)}
             icon={iconForSocial(entry.label)}
+            index={next()}
           />
         ))
       }
@@ -81,13 +67,22 @@ const COMMUNITY_BLURB: Record<string, string> = {
 
   <section class="section">
     <div class="section-head">
-      <h2 class="label">What we build</h2>
-      <span class="count">{org.products.length}</span>
+      <h2 class="label">Universo Crafter</h2>
+      <span class="count">{NETWORK.length}</span>
     </div>
-    <div class="rows">
+    <div class="universe">
       {
-        org.products.map((product) => (
-          <ArrowLink href={product.url} title={product.title} sub={product.tagline ?? displayHref(product.url)} />
+        NETWORK.map((area) => (
+          <a
+            class="tile"
+            href={area.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={`--tile-bg: ${area.bg}; --tile-ink: ${area.ink}`}
+          >
+            <b>{area.name}</b>
+            <span>{area.tagline}</span>
+          </a>
         ))
       }
     </div>
@@ -95,7 +90,26 @@ const COMMUNITY_BLURB: Record<string, string> = {
 
   <section class="section">
     <div class="section-head">
-      <h2 class="label">The crafters</h2>
+      <h2 class="label">Lo que construimos</h2>
+      <span class="count">{org.products.length}</span>
+    </div>
+    <div class="rows">
+      {
+        org.products.map((product) => (
+          <ArrowLink
+            href={product.url}
+            title={product.title}
+            sub={product.tagline ?? displayHref(product.url)}
+            index={next()}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="label">Los crafters</h2>
       <span class="count">{members.length}</span>
     </div>
     <div class="people">
@@ -106,9 +120,8 @@ const COMMUNITY_BLURB: Record<string, string> = {
               class="person-avatar"
               src={avatarFor(member)}
               alt=""
-              width="36"
-              height="36"
-              loading="lazy"
+              width="44"
+              height="44"
               decoding="async"
             />
             <span class="person-body">
@@ -123,7 +136,7 @@ const COMMUNITY_BLURB: Record<string, string> = {
 
   <section class="section">
     <div class="section-head">
-      <h2 class="label">Follow along</h2>
+      <h2 class="label">Síguenos</h2>
       <span class="count">{follow.length}</span>
     </div>
     <div class="rows">
@@ -134,6 +147,7 @@ const COMMUNITY_BLURB: Record<string, string> = {
             title={entry.label}
             sub={displayHref(entry.href)}
             icon={iconForSocial(entry.label)}
+            index={next()}
           />
         ))
       }

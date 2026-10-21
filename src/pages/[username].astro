@@ -16,10 +16,10 @@ type Props = { member: Member }
 const { member } = Astro.props
 
 // Bio, stack and gear deliberately stay on crafter.run. This page is the links.
-const description = `${member.name} — ${member.role} at Crafter Station. Every link in one place.`
+const description = `${member.name}, ${member.role} en Crafter Station. Todos sus links.`
 ---
 
-<Base title={`${member.name} — Crafter Station`} description={description} image={member.image ?? undefined}>
+<Base title={`${member.name} · Crafter Station`} description={description} image={member.image ?? undefined}>
   <a class="back" href="/">
     <svg
       width="12"
@@ -34,7 +34,7 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
     >
       <path d="M8.5 3 4.5 7l4 4" />
     </svg>
-    All crafters
+    Todos los crafters
   </a>
 
   <section class="profile">
@@ -42,15 +42,15 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
       class="profile-avatar"
       src={avatarFor(member)}
       alt={member.name}
-      width="80"
-      height="80"
+      width="112"
+      height="112"
       decoding="async"
     />
     <h1>{member.name}</h1>
     <div class="profile-meta">
-      <span class="chip">{member.role}</span>
+      <span class="chip chip-accent">{member.role}</span>
       {member.location && <span class="chip">{member.location}</span>}
-      {member.joinedYear && <span class="chip">Since {member.joinedYear}</span>}
+      {member.joinedYear && <span class="chip">Desde {member.joinedYear}</span>}
     </div>
   </section>
 
@@ -62,16 +62,17 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
     <div class="rows">
       {
         member.links.length > 0 ? (
-          member.links.map((link) => (
+          member.links.map((link, i) => (
             <ArrowLink
               href={link.href}
               title={LINK_LABELS[link.kind]}
               sub={displayHref(link.href)}
               icon={link.kind}
+              index={i + 1}
             />
           ))
         ) : (
-          <p class="label">No public links yet.</p>
+          <p class="label">Todavía no hay links públicos.</p>
         )
       }
     </div>
@@ -79,11 +80,11 @@ const description = `${member.name} — ${member.role} at Crafter Station. Every
 
   <section class="section">
     <div class="section-head">
-      <h2 class="label">More</h2>
+      <h2 class="label">Más</h2>
     </div>
     <div class="rows">
-      <ArrowLink href={member.url} title="Full profile" sub={displayHref(member.url)} icon="link" primary />
-      <ArrowLink href="https://crafters.chat" title="Join the community" sub="crafters.chat" icon="whatsapp" />
+      <ArrowLink href={member.url} title="Perfil completo" sub={displayHref(member.url)} icon="link" primary />
+      <ArrowLink href="https://crafters.chat" title="Únete a la comunidad" sub="crafters.chat" icon="whatsapp" />
     </div>
   </section>
 </Base>
